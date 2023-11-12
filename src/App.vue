@@ -116,7 +116,7 @@
   <div class="container">
     <div class="result">
       <ol>
-        <li v-for="(task, index) in tasks" v-on:click="removeTask(index)">{{ task }}</li>
+        <li v-for="(task, index) in tasks" v-bind:key="task" v-on:click="removeTask(index)">{{ task }}</li>
       </ol>
     </div>
   </div>
