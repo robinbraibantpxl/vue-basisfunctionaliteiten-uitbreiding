@@ -1,11 +1,21 @@
 <script>
+  //Opdracht 1: Import JsConfetti
   import JsConfetti from 'js-confetti'
+
   export default {
     data() {
       return {
         name: '',
         counter: 0,
-        JsConfetti: new JsConfetti()
+
+        //Opdracht 1Variabele JsConfetti
+        JsConfetti: new JsConfetti(),
+
+        //Opdracht 2: tasks variabele
+        tasks: [],
+        //Opdracht 2: Nieuwe variabele om een nieuwe taak in op te vangen
+        newTask: ""
+
       }
     },
 
@@ -17,6 +27,7 @@
         }
         return `${this.name} Braibant`
       },
+      //Computed Property Opdracht 1
       goalReached() {
         if (this.counter == 6) {
           this.JsConfetti.addConfetti();
@@ -36,6 +47,17 @@
       
       addOne() {
         this.counter += 1
+      },
+
+      //Opdracht 2: Methode om nieuwe taak toe te voegen
+      addTask() {
+          this.tasks.push(this.newTask);
+          this.newTask = "";
+      },
+
+      //Opdracht 3: Methode om taak te verwijderen
+      removeTask(index) {
+        this.tasks.splice(index, 1);
       }
     }
   }
@@ -64,10 +86,41 @@
       <p>{{ counter }}</p>
       <button @click="addOne()">Tel 1 bij</button>
     </div>
+
+    <!-- Begin HTML element opdracht 1 -->
     <div class="result">
       <p>{{goalReached}}</p>
     </div>
+    <!-- Einde HTML element opdracht 1 -->
   </div>
+
+  <!-- Begin HTML opdracht 2 -->
+  <div class="container">
+    <div class="result">
+      <div class="form__field">
+        <label for="newTask">Voeg een nieuwe taak toe</label>
+        <input type="text" id="newTask" v-model="newTask">
+        <button v-on:click="addTask()">Voeg taak toe</button>
+      </div>
+      <div v-if="tasks.length <= 0">
+        <p>Alle taken werden uitgevoerd</p>
+      </div>
+      <div v-else>
+        <p>Er zijn nieuwe taken beschikbaar</p>
+      </div>
+    </div>
+  </div>
+  <!-- Einde HTML opdracht 2 -->
+
+  <!-- Begin HTML Opdracht 3 -->
+  <div class="container">
+    <div class="result">
+      <ol>
+        <li v-for="(task, index) in tasks" v-on:click="removeTask(index)">{{ task }}</li>
+      </ol>
+    </div>
+  </div>
+  <!-- Einde HTML Opdracht 3 -->
 </template>
 
 <style>
