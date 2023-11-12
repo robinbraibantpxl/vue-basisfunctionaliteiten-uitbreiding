@@ -1,9 +1,11 @@
 <script>
+  import JsConfetti from 'js-confetti'
   export default {
     data() {
       return {
         name: '',
-        counter: 0
+        counter: 0,
+        JsConfetti: new JsConfetti()
       }
     },
 
@@ -15,6 +17,12 @@
         }
         return `${this.name} Braibant`
       },
+      goalReached() {
+        if (this.counter == 6) {
+          this.JsConfetti.addConfetti();
+          return "Doel bereikt"
+        }
+      }
     },
 
     methods: {
@@ -55,6 +63,9 @@
       <h3>Teller</h3>
       <p>{{ counter }}</p>
       <button @click="addOne()">Tel 1 bij</button>
+    </div>
+    <div class="result">
+      <p>{{goalReached}}</p>
     </div>
   </div>
 </template>
